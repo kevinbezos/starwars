@@ -1,0 +1,307 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;  /* Senterer containeren horisontalt */
+  align-items: center;      /* Sentrerer containeren vertikalt */
+  background-color: lightgrey;  /* Bakgrunnsfarge for kroppen */
+  height: 100vh;            /* Bruker full skjermhøyde */
+  box-sizing: border-box;
+  overflow-x: hidden; 
+  overflow-y: hidden;
+
+    opacity: 0;
+    animation: loading 1s ease-in forwards; /* Fade in over 1.5 seconds */
+    background: black;
+}
+
+@keyframes loading {
+    to {opacity: 1;}
+}
+
+
+/* Container stil med fast størrelse */
+.container {
+  width: 1024px;
+  height: 768px;
+  border: 2px solid black;  /* Legger til en svart ramme */
+  background-color: #5a5858d2;  /* Bakgrunnsfarge for containeren */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;   /* Starter innholdet fra toppen */
+  align-items: center;      /* Sentrerer innholdet horisontalt */
+  box-sizing: border-box;
+  position: relative;       /* Gjør det mulig å posisjonere elementer absolutt inni containeren */
+  overflow: hidden;         /* Gjør at innhold som går utenfor containerens grenser vil bli klippet */
+}
+
+#shipBackground {
+  position: absolute;       /* Plasser bildet relativt til containeren */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;               /* Lav z-index slik at andre elementer kan plasseres foran */
+}
+
+#gunBullets {
+  position: absolute;       /* Plasser bildet absolutt innenfor containeren */
+  top: 55%;                 /* Startplassering: 55% ned fra toppen */
+  left: 44%;                /* Startplassering: 44% fra venstre */
+  transform: translateY(-50%) scaleX(1) rotate(218deg); /* Justering for nøyaktig plassering og rotasjon */
+  width: 20px;              /* Sett bredden som ønsket */
+  height: auto;             /* Bevarer bildeforholdet */
+  z-index: 2;               /* Sørger for at bildet ligger foran bakgrunnsbildet */
+  display: none;            /* Start element som skjult */
+}
+
+
+
+.explosion {
+  position: absolute;
+  top: 70%;                  /* Samme sluttpunkt som kulens */
+  left: 20%;                 /* Samme sluttpunkt som kulens */
+  width: 0;                  /* Start med 0 bredde */
+  height: 0;                 /* Start med 0 høyde */
+  background-color: red;
+  border-radius: 50%;
+  opacity: 0;                /* Start usynlig */
+  transform: translate(-50%, -50%) scale(1); /* Sentraliser */
+  z-index: 3;
+  display: none;            /* Start element som skjult */
+}
+
+#garageDoor {
+  position: absolute;
+  top: 37.5%;                /* Startposisjon for garasjeporten */
+  left: 32%;                 /* Juster posisjonen horisontalt */
+  width: 350px;              /* Bredde på garasjeporten */
+  height: 165px;             /* Høyde på garasjeporten */
+  z-index: 2;                /* Sørg for at den ligger foran andre elementer */
+  transition: top 0.5s, opacity 0.5s; /* Reduser varigheten for raskere effekt */
+}
+
+#WhitestormTrooper {
+
+  position: absolute;
+  z-index: 1;
+  height: 65px;
+  top: 49%;
+  right: 45%;
+}
+
+#gunBulletsRight {
+  position: absolute;
+  top: 50%;                 /* Startplassering: 55% ned fra toppen */
+  right: 44%;               /* Startplassering: 44% fra høyre */
+  transform: translateY(-50%) scaleX(1) rotate(-260deg); /* Juster rotasjon for å matche bevegelse mot høyre */
+  width: 20px;              /* Sett bredden som ønsket */
+  height: auto;             /* Bevarer bildeforholdet */
+  z-index: 2;               /* Sørger for at bildet ligger foran bakgrunnsbildet */
+  display: none;            /* Start element som skjult */
+}
+
+#lukeSkywalker {
+
+  position: absolute;
+  z-index: 6;
+  height: 200px;
+  left: 1%;
+  top: 70%;
+
+  transition: transform 1.2s ease;
+
+}
+
+#Leia {
+
+  position: absolute;
+  z-index: 2;
+  height: 200px;
+  right: 14%;
+  top: 60%;
+
+  transition: transform 1.2s ease;
+}
+
+
+/* Animasjon for den nye kulen som går ned mot høyre */
+.door-checkbox:checked ~ #gunBulletsRight {
+  display: block;            /* Vis kulen når døren er oppe */
+  animation: moveDiagonallyRight 1s linear infinite; /* Animer kulen */
+}
+
+/* Keyframes for kulen som beveger seg ned mot høyre */
+@keyframes moveDiagonallyRight {
+  0% {
+    top: 52%;  
+    right: 44%;
+  }
+  100% {
+    top: 70%;  
+    right: 20%;
+  }
+}
+
+/* Skjuler checkboxen */
+.door-checkbox {
+  display: none;
+}
+
+/* Animasjoner for å åpne garasjeporten og starte animasjonen til #gunBullets og .explosion når checkboxen er sjekket */
+.door-checkbox:checked ~ #garageDoor {
+  top: -300px;               /* Flytter garasjeporten ut av synsfeltet */
+  opacity: 0;
+}
+
+.door-checkbox:checked ~ #gunBullets, 
+.door-checkbox:checked ~ .explosion {
+  display: block;            /* Vis elementene når døren er oppe */
+}
+
+.door-checkbox:checked ~ #gunBullets {
+  animation: moveDiagonally 0.1s linear infinite; /* Redusert varighet og satt til å være uendelig */
+}
+
+.door-checkbox:checked ~ .explosion {
+  animation: explode 0.1s linear infinite 1s; /* Redusert varighet, satt til å være uendelig og forsinkelse */
+}
+
+/* Stil for knappen */
+.doorButton {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  background-color: #363839;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 4;
+}
+
+/* Animasjonskeyframes for de forskjellige elementene */
+@keyframes moveDiagonally {
+  0% {
+    top: 55%;  
+    left: 44%;
+  }
+  100% {
+    top: 70%;  
+    left: 20%;
+  }
+}
+
+@keyframes explode {
+  0%, 90% { 
+    opacity: 0; 
+    width: 0; 
+    height: 0;
+  }
+  91% {
+    opacity: 1; 
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    opacity: 0; 
+    width: 100px; /* Juster størrelsen etter behov */
+    height: 100px;
+  }
+}
+
+
+
+.blood-drip {
+  position: absolute;
+  top: 400px;  /* Starter nærmere flekken */
+  left: 80%;
+  width: 15px;
+  height: 30px;
+  background-color: #8B0000;
+  border-radius: 50%;
+  animation: drip 2s ease-out infinite;  /* Kortere varighet for raskere fall */
+  z-index: 2;
+}
+
+/* Bloddammen som dannes etter at dråpen har falt */
+.blood-pool {
+  position: absolute;
+  top: 650px;  /* Blodflekken er nærmere dråpen */
+  left: 75%;
+  width: 100px;
+  height: 50px;
+  background: radial-gradient(circle at 50% 50%, #8B0000, #4B0000 70%, #330000);
+  border-radius: 50% 60% 60% 50%;
+  box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  animation: expand 2s ease-out infinite;  /* Kortere varighet */
+}
+
+/* Animasjon for å få bloddråpen til å falle */
+@keyframes drip {
+  0% {
+    top: 500px;  /* Start nær toppen av flekken */
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    top: 660px;  /* Slutter nærmere toppen av blodflekken */
+    opacity: 1;
+  }
+  100% {
+    top: 460px;
+    opacity: 0;
+  }
+}
+
+/* Animasjon for å få bloddammen til å vokse */
+@keyframes expand {
+  0%, 50% {
+    width: 100px;
+    height: 50px;
+  }
+  100% {
+    width: 120px;  /* Blodflekken utvider seg mindre */
+    height: 60px;
+  }
+}
+
+#saveLeiaText{
+ position: absolute;
+  color: #ffffff;
+  z-index: 3;
+  top: 60%;
+  left: 2%;
+}
+
+.backContainer {
+  background-color: rgb(23, 23, 149);
+  position: relative;
+  z-index: 3;
+  left: 400px;
+  top: 80px;
+
+  border-radius: 50px;
+  transition: transform 0.1s ease-in-out;
+}
+#backFunction {
+  position: relative;
+  font-size: 20px;
+  z-index: 3;
+
+  text-decoration: none;
+  color: aliceblue;
+  padding: 20px;
+
+
+  
+}
+.backContainer:hover {
+  transform: scale(1.2);
+}

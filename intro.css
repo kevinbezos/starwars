@@ -1,0 +1,228 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+    overflow-y: hidden;
+
+    background-image: url('./Bilder_intro/space.png');
+    background-size: auto;
+    background-position: center;
+    background-repeat: z;
+
+}
+
+/* parent for elementer */
+/* parent for elementer */
+/* parent for elementer */
+
+.mainWindowContainer {
+    width: 100vw; 
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+/* Intro ship animation */
+/* Intro ship animation */
+/* Intro ship animation */
+/* Intro ship animation */
+
+#shipIntro {
+    display: inline-block;
+    justify-content: center;
+    width: 500px;
+    margin-top: 100px;
+    pointer-events: auto;
+    scale: 1;
+    transition: scale 1.5s ease, opacity 1.5s ease, filter 2s;
+
+    animation-name: shipMoving;
+    animation-duration: 8s;
+    animation-play-state: running;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shipMoving {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(20px) rotate(5deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+#shipIntro:hover {
+    scale: 1.1;
+    cursor: pointer;
+    opacity: 0%;
+    filter:blur(8px);
+    
+
+
+}
+
+
+/* Dark force ship animation */
+/* Dark force ship animation */
+/* Dark force ship animation */
+/* Dark force ship animation */
+
+#darkShip {
+    position: relative;
+    width: 100px;
+    opacity: 0;
+    animation-name: darkShip;
+    animation-duration: 7s;
+    animation-timing-function: ease-in-out;
+    animation-play-state: running;
+    animation-delay: 1.5s;
+    animation-fill-mode: forwards;
+
+    filter: brightness(0.5);
+}
+
+@keyframes darkShip {
+    0% {
+        transform: translateX(50vw) scale(0.2);
+        filter: brightness(80%); 
+        opacity: 1;
+    }
+
+    99% {
+        transform: translateX(-200vw) scale(1.8) rotate(35deg);
+        filter: brightness (100%);
+        opacity: 1; 
+    }
+    100% {
+        transform: translateX(-100vw) scale(1.8);
+        filter: brightness (100%);
+        opacity: 0;
+    }
+}
+
+/* Jedi Speeder animation */
+/* Jedi Speeder animation */
+/* Jedi Speeder animation */
+/* Jedi Speeder animation */
+
+#jediSpeeder {
+    position: relative;
+    width: 100px;
+    opacity: 0;
+
+    animation-name: jediSpeeder;
+    animation-duration: 12s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-delay: 5.5s;
+
+    transition: opacity 2s;
+}
+
+@keyframes jediSpeeder {
+    0% { transform: translateX(-120vw) scale(0.3); opacity: 0.6; filter: blur(0.9px); }
+    100% { transform: translateX(80vw) scale(1.5); opacity: 0.8; filter: blur(0px); }
+}
+
+/* blaster effect */
+/* blaster effect */
+/* blaster effect */
+
+#blastEffect {
+    position: absolute;
+    scale: 0.1;
+    left: -500px; 
+    top: 10%; 
+    transform: translateY(-50%); 
+
+    animation: blastEffect 1.9s ease-in-out infinite;
+    animation-delay: 2s; 
+}
+
+#blastEffect2 {
+    position: absolute;
+    scale: 0.1;
+    left: -500px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+
+    animation: blastEffect 1.9s ease-in-out infinite;
+    animation-delay: 1.5s; 
+}
+
+@keyframes blastEffect {
+    0% { left: -500px; opacity: 1; }
+    50%{ left: 100vw; opacity: 0; }
+    80%{ left: 100vw; opacity: 0.7; }
+    100% { left: 300vw; opacity: 0; }
+}
+
+@keyframes blastEffect2 {
+    0% { left: -500px; opacity: 1; }
+    50%{ left: 100vw; opacity: 1; }
+    100% { left: 300vw; opacity: 0; }
+}
+
+/* star wars logo */
+/* star wars logo */
+/* star wars logo */
+/* star wars logo */
+/* litt dårlig posisjonering */
+
+#starwarsLogo {
+    position: absolute;
+    width: 500px;
+    margin-bottom: 500px;
+    
+    scale: 0.4;
+    opacity: 0;
+    
+    transition:transform 6s ease-in, opacity 2s ease
+   
+}
+
+.introShipLogo {
+    position: absolute; 
+    z-index: 1;
+
+}
+
+.introShipLogo:hover #starwarsLogo {
+    opacity: 1;
+    transform: scale(1.4);
+    transition: opacity 2.3s ease-in-out, transform 3s;
+}
+
+
+/* death star */
+/* death star */
+/* death star */
+
+#deathStar {
+    position: relative;
+    transform: scale(0.95);
+    left: -10%; 
+    top: 0%; 
+    filter: brightness(25%);
+    transition: transform 0.3s ease; 
+    z-index: 0;
+    
+}
+
+/* rescaling for 1024 x 768 */
+/* rescaling for 1024 x 768 */
+/* rescaling for 1024 x 768 */
+
+@media (max-width: 1024px) {
+    .mainWindowContainer{
+        scale: 0.8;
+    }
+
+    #blastEffect, #blastEffect2 {
+        width: 700px;
+        left: -200vw;
+        
+    }
+
+
+}
